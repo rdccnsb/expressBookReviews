@@ -51,10 +51,8 @@ const authenticatedUser = (username, password) => {
     });
     // Return true if any valid user is found, otherwise false
     if (validusers.length > 0) {
-        console.log("OK");
         return true;
     } else {
-        console.log("KO");
         return false;
     }
 }
