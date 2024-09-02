@@ -90,13 +90,17 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   const isbn = req.params.isbn;
   const book = books[isbn];
 
-  book.reviews.push({user:req.session.authorization.username, review: req.body.review});
-  res.send("Review added successfully");
+  book.reviews[req.session.authorization.username] = req.body.review;
+  res.send(book);
 });
 
-regd_users.put("/auth/review/:isbn", (req, res) => {
-    
-});
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+  const isbn = req.params.isbn;
+  const book = books[isbn];
+
+  delete book.reviews[req.session.authorization.username];
+  res.send(book);
+}); 
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
